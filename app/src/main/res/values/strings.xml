@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">User Manager</string>
+    <string name="action_settings">Settings</string>
+    <string name="bienvenido_a_user_manager">Bienvenido a User Manager!</string>
+    <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
+    <string name="listar_usuarios">Listar usuarios</string>
+    <string name="insertar_nuevos_usuarios">Insertar nuevos usuarios</string>
+</resources>
