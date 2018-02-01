@@ -31,6 +31,10 @@ public class PantallaPresentacion extends AppCompatActivity {
         reloj.start();
 
     }
+    protected void onPause(){
+        super.onPause();
+        finish();
+    }
 
 
 }
