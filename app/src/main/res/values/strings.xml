@@ -5,4 +5,32 @@
     <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
     <string name="listar_usuarios">Listar usuarios</string>
     <string name="insertar_nuevos_usuarios">Insertar nuevos usuarios</string>
+    <string name="introduce_los_datos_de_los_usuarios_que_quieres_insertar">Introduce los datos de los usuarios que quieres insertar:</string>
+    <string name="recuerda_que_ning_n_campo_es_obligario">Recuerda que ningún campo es obligario.</string>
+    <string name="nacionalidad">Nacionalidad</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="n_mero_de_usuarios">Número de usuarios</string>
+    <string name="sexo">Sexo</string>
+    <string name="fecha_de_registro">Fecha de registro</string>
+
+    <string-array name="nacionalidades">
+        <item>AU</item>
+        <item>BR</item>
+        <item>CA</item>
+        <item>CH</item>
+        <item>DE</item>
+        <item>DK</item>
+        <item>ES</item>
+        <item>FI</item>
+        <item>FR</item>
+        <item>GB</item>
+        <item>IE</item>
+        <item>IR</item>
+        <item>NL</item>
+        <item>NZ</item>
+        <item>TR</item>
+        <item>US</item>
+    </string-array>
+
 </resources>

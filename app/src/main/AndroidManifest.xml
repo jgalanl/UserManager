@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".PantallaPrincipal">
             <intent-filter>
                 <action android:name="com.example.jesusgalan.usermanager.PantallaPrincipal" />
@@ -29,7 +30,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".PantallaNuevosUsuarios"></activity>
+
+        <activity android:name=".PantallaNuevosUsuarios">
+            <intent-filter>
+                <action android:name="com.example.jesusgalan.usermanager.PantallaNuevosUsuarios" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
