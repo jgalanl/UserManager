@@ -15,8 +15,8 @@ public class PantallaPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
 
-        insertar = findViewById(R.id.boton_insertar);
-        listar = findViewById(R.id.boton_listar);
+        insertar = findViewById(R.id.boton_pantalla_insertar);
+        listar = findViewById(R.id.boton_pantalla_listar);
 
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
