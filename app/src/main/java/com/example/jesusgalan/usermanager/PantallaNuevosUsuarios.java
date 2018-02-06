@@ -1,5 +1,7 @@
 package com.example.jesusgalan.usermanager;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,10 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
@@ -51,7 +57,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                 //Numero de usuarios a insertar
                 num = findViewById(R.id.editText);
                 String numero = num.getText().toString();
-                Log.d("holi", "numero"+numero);
                 //Fecha
                 date = findViewById(R.id.datePicker);
                 int day  = date.getDayOfMonth();
@@ -62,7 +67,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
 
                 //SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
 
-                //Obtener respuesta del servidor
+                //Obtener datos de los usuarios almacenados en el servidos
                 ObtenerJSON hilo = new ObtenerJSON();
                 try {
                     cadena_json = hilo.execute(nacionalidad, genero, numero).get();
@@ -70,9 +75,40 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("holi", "nuevos usuarios"+cadena_json);
+                //Parsear datos json
+                UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                try {
+                    JSONObject parser = new JSONObject(cadena_json);
+                    JSONArray jsonArray = parser.getJSONArray("results");
+                    for(int i = 0; i < jsonArray.length();i++){
+                        JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                        JSONObject nombre = jsonObject.getJSONObject("name");
+                        String nombreCompleto = nombre.getString("title").concat(nombre.getString("first")).concat(nombre.getString("last"));
+                        Log.d("nombre", nombreCompleto);
 
-                //Insertar respuesta en la bbdd
+                        String fecha = jsonObject.getString("registered");
+                        Log.d("fecha", fecha);
+                        String gender = jsonObject.getString("gender");
+                        Log.d("gender", gender);
+                        String imagen = jsonObject.getString("picture");
+                        String localizacion = jsonObject.getString("location");
 
+                        //Crear un mapa de valores
+                        ContentValues values = new ContentValues();
+                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);
+                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, fecha);
+                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, gender);
+                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
+                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, localizacion);
+                        //Insertar la informacion en la bbdd
+                        long newRow = db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
+                        Log.d("holi", "se ha insertado");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
