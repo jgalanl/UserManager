@@ -16,7 +16,7 @@
     <string name="insertar_usuarios">Insertar usuarios</string>
 
     <string-array name="nacionalidades">
-        <item> </item>
+        <item>Por defecto</item>
         <item>AU</item>
         <item>BR</item>
         <item>CA</item>
