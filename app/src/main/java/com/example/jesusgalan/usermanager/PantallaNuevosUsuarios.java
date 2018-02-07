@@ -76,6 +76,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                 }
                 Log.d("holi", "nuevos usuarios"+cadena_json);
                 //Parsear datos json
+                //BBDD
                 UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
                 try {
@@ -83,8 +84,10 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                     JSONArray jsonArray = parser.getJSONArray("results");
                     for(int i = 0; i < jsonArray.length();i++){
                         JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                        JSONObject nombre = jsonObject.getJSONObject("name");
-                        String nombreCompleto = nombre.getString("title").concat(nombre.getString("first")).concat(nombre.getString("last"));
+                        JSONObject name = jsonObject.getJSONObject("name");
+                        String nombreCompleto = name.getString("title").concat(" ")
+                                .concat(name.getString("first")).concat(" ")
+                                .concat(name.getString("last"));
                         Log.d("nombre", nombreCompleto);
 
                         String fecha = jsonObject.getString("registered");
