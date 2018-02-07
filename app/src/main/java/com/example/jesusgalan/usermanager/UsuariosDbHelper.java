@@ -1,6 +1,7 @@
 package com.example.jesusgalan.usermanager;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -20,12 +21,14 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA + INTEGER_TYPE + COMMA_SEP +
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO + TEXT_TYPE + COMMA_SEP +
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN + BLOB_TYPE + COMMA_SEP +
-                    UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION + TEXT_TYPE + " )";
+                    UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION + TEXT_TYPE + COMMA_SEP +
+                    UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO + TEXT_TYPE + COMMA_SEP +
+                    UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UsuariosContract.UsuariosEntry.TABLE_NAME;
 
-    public UsuariosDbHelper(Context context) {
+    UsuariosDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -39,5 +42,20 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         onCreate(sqLiteDatabase);
+    }
+
+    void insertar(String nombreCompleto, String fecha, String gender, String imagen, String localizacion, String username, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Crear un mapa de valores
+        ContentValues values = new ContentValues();
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, fecha);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, gender);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, localizacion);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, username);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, password);
+        //Insertar la informacion en la bbdd
+        db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
     }
 }

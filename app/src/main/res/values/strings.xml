@@ -14,6 +14,10 @@
     <string name="sexo">Sexo</string>
     <string name="fecha_de_registro">Fecha de registro</string>
     <string name="insertar_usuarios">Insertar usuarios</string>
+    <string name="ErrorInsertar">No se pueden insertar mas de 5000 usuarios</string>
+    <string name="DescargandoUsuarios">Descargando usuarios…</string>
+    <string name="UsuariosDescargados">Se han descargado %1$d usuarios</string>
+    <string name="UsuariosInsertados">Se han insertado %1$d usuarios</string>
 
     <string-array name="nacionalidades">
         <item>Por defecto</item>

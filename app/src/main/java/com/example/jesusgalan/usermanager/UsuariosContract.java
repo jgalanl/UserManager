@@ -15,5 +15,7 @@ public final class UsuariosContract {
         public static final String COLUMN_NAME_GENERO = "genero";
         public static final String COLUMN_NAME_IMAGEN ="imagen";
         public static final String COLUMN_NAME_LOCALIZACION ="localizacion";
+        public static final String COLUMN_NAME_USUARIO="usuario";
+        public static final String COLUMN_NAME_PASSWORD="password";
     }
 }

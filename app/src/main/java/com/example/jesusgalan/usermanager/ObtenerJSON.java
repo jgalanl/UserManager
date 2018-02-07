@@ -12,13 +12,16 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+
+
 public class ObtenerJSON extends AsyncTask<String, Void, String> {
     private StringBuilder data = new StringBuilder();
+
     @Override
     protected String doInBackground(String... strings) {
         try {
             //Construir la url
-            Uri.Builder builder = Uri.parse("https://randomuser.me/api/?&inc=name,registered,gender,picture,location&noinfo").buildUpon();
+            Uri.Builder builder = Uri.parse("https://randomuser.me/api/?&inc=name,registered,gender,picture,location,login&noinfo").buildUpon();
             if(! strings[0].equalsIgnoreCase("Por defecto")){
                 builder = builder.appendQueryParameter("nat", strings[0]);
             }
@@ -39,15 +42,12 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
                 data.append(line);
                 line = bufferedReader.readLine();
             }
+            bufferedReader.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         Log.d("holi", "json"+data);
         return data.toString();
-    }
-
-    @Override
-    protected void onPostExecute(String aVoid) {
-        super.onPostExecute(aVoid);
     }
 }
