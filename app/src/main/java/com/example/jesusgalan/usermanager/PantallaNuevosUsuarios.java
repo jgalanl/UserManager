@@ -1,7 +1,5 @@
 package com.example.jesusgalan.usermanager;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +56,11 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                 //Numero de usuarios a insertar
                 num = findViewById(R.id.editText);
                 String numero = num.getText().toString();
+                if(Integer.parseInt(numero) > 5000){
+                    Toast.makeText(getApplicationContext(), R.string.ErrorInsertar, Toast.LENGTH_LONG).show();
+                    onStart();
+                }
+
                 //Fecha
                 date = findViewById(R.id.datePicker);
                 int day  = date.getDayOfMonth();
@@ -76,9 +80,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                 }
                 Log.d("holi", "nuevos usuarios"+cadena_json);
                 //Parsear datos json
-                //BBDD
-                UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-                SQLiteDatabase db = mDbHelper.getWritableDatabase();
                 try {
                     JSONObject parser = new JSONObject(cadena_json);
                     JSONArray jsonArray = parser.getJSONArray("results");
@@ -88,26 +89,16 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                         String nombreCompleto = name.getString("title").concat(" ")
                                 .concat(name.getString("first")).concat(" ")
                                 .concat(name.getString("last"));
-                        Log.d("nombre", nombreCompleto);
-
                         String fecha = jsonObject.getString("registered");
-                        Log.d("fecha", fecha);
                         String gender = jsonObject.getString("gender");
-                        Log.d("gender", gender);
                         String imagen = jsonObject.getString("picture");
                         String localizacion = jsonObject.getString("location");
+                        JSONObject login = jsonObject.getJSONObject("login");
+                        String username = login.getString("username");
+                        String password = login.getString("password");
 
-                        //Crear un mapa de valores
-                        ContentValues values = new ContentValues();
-                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);
-                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, fecha);
-                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, gender);
-                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
-                        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, localizacion);
-                        //Insertar la informacion en la bbdd
-                        long newRow = db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
-                        Log.d("holi", "se ha insertado"+newRow);
-
+                        UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
+                        mDbHelper.insertar(nombreCompleto, fecha, gender, imagen, localizacion, username, password);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -18,7 +18,7 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             //Construir la url
-            Uri.Builder builder = Uri.parse("https://randomuser.me/api/?&inc=name,registered,gender,picture,location&noinfo").buildUpon();
+            Uri.Builder builder = Uri.parse("https://randomuser.me/api/?&inc=name,registered,gender,picture,location,login&noinfo").buildUpon();
             if(! strings[0].equalsIgnoreCase("Por defecto")){
                 builder = builder.appendQueryParameter("nat", strings[0]);
             }
@@ -39,6 +39,7 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
                 data.append(line);
                 line = bufferedReader.readLine();
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
