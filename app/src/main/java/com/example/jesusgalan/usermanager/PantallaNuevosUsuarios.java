@@ -106,7 +106,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, localizacion);
                         //Insertar la informacion en la bbdd
                         long newRow = db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
-                        Log.d("holi", "se ha insertado");
+                        Log.d("holi", "se ha insertado"+newRow);
 
                     }
                 } catch (JSONException e) {
