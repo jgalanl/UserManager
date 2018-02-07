@@ -29,7 +29,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UsuariosContract.UsuariosEntry.TABLE_NAME;
 
-    public UsuariosDbHelper(Context context) {
+    UsuariosDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -45,7 +45,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    public int insertar(String nombreCompleto, String fecha, String gender, String imagen, String localizacion, String username, String password){
+    void insertar(String nombreCompleto, String fecha, String gender, String imagen, String localizacion, String username, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         //Crear un mapa de valores
         ContentValues values = new ContentValues();
@@ -59,8 +59,5 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         //Insertar la informacion en la bbdd
         long newRow = db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
         Log.d("holi", "se ha insertado"+newRow);
-
-
-        return 1;
     }
 }
