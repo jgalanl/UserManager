@@ -1,5 +1,6 @@
 <application>
   <component name="IntentionManagerSettings">
     <ignoreAction name="Java/Try Statements/Surround with try-with-resources block" />
+    <ignoreAction name="Java/Declaration/Split Declaration" />
   </component>
 </application>
