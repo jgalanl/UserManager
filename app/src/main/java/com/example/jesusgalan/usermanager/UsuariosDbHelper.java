@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class UsuariosDbHelper extends SQLiteOpenHelper{
     //Informacion de la bbdd
@@ -57,7 +56,6 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, username);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, password);
         //Insertar la informacion en la bbdd
-        long newRow = db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
-        Log.d("holi", "se ha insertado"+newRow);
+        db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
     }
 }

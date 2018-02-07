@@ -12,8 +12,11 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+
+
 public class ObtenerJSON extends AsyncTask<String, Void, String> {
     private StringBuilder data = new StringBuilder();
+
     @Override
     protected String doInBackground(String... strings) {
         try {
@@ -39,16 +42,12 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
                 data.append(line);
                 line = bufferedReader.readLine();
             }
+            bufferedReader.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         Log.d("holi", "json"+data);
         return data.toString();
-    }
-
-    @Override
-    protected void onPostExecute(String aVoid) {
-        super.onPostExecute(aVoid);
     }
 }
