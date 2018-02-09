@@ -3,19 +3,18 @@ package com.example.jesusgalan.usermanager;
 
 import android.provider.BaseColumns;
 
-import java.util.Date;
 
-public final class UsuariosContract {
+final class UsuariosContract {
     private UsuariosContract(){}
 
-    public static class UsuariosEntry implements BaseColumns{
-        public static final String TABLE_NAME = "USUARIO";
-        public static final String COLUMN_NAME_NOMBRE = "nombre";
-        public static final String COLUMN_NAME_FECHA = "fecha";
-        public static final String COLUMN_NAME_GENERO = "genero";
-        public static final String COLUMN_NAME_IMAGEN ="imagen";
-        public static final String COLUMN_NAME_LOCALIZACION ="localizacion";
-        public static final String COLUMN_NAME_USUARIO="usuario";
-        public static final String COLUMN_NAME_PASSWORD="password";
+    static class UsuariosEntry implements BaseColumns{
+        static final String TABLE_NAME = "USUARIO";
+        static final String COLUMN_NAME_NOMBRE = "nombre";
+        static final String COLUMN_NAME_FECHA = "fecha";
+        static final String COLUMN_NAME_GENERO = "genero";
+        static final String COLUMN_NAME_IMAGEN ="imagen";
+        static final String COLUMN_NAME_LOCALIZACION ="localizacion";
+        static final String COLUMN_NAME_USUARIO="usuario";
+        static final String COLUMN_NAME_PASSWORD="password";
     }
 }

@@ -1,8 +1,7 @@
 package com.example.jesusgalan.usermanager;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,7 +20,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class PantallaNuevosUsuarios extends Activity {
+public class PantallaNuevosUsuarios extends AppCompatActivity {
 
     Button insertar;
     Spinner nat;
@@ -29,9 +28,6 @@ public class PantallaNuevosUsuarios extends Activity {
     EditText num;
     DatePicker date;
     String cadena_json;
-    //https://randomuser.me/api/?inc=nat,registered,gender,picture,location,&nat=gb,&gender=female,&results=50
-
-   // https://randomuser.me/api/?inc=gender,registered&gender=male&registered=2013-08-26%2004:54:46&noinfo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +43,10 @@ public class PantallaNuevosUsuarios extends Activity {
                 String nacionalidad = nat.getSelectedItem().toString();
                 String genero="Por defecto";
                 male = findViewById(R.id.box_male);
-                female = findViewById(R.id.box_female);
                 if (male.isChecked()){
                     genero = "male";
                 }
+                female = findViewById(R.id.box_female);
                 if(female.isChecked()){
                     genero = "female";
                 }
@@ -68,18 +64,16 @@ public class PantallaNuevosUsuarios extends Activity {
                     int year = date.getYear();
                     Calendar fechaUsuario = Calendar.getInstance();
                     fechaUsuario.set(year, month, day);
-
                     //Obtener json con datos de los usuarios almacenados en el servidor
                     ObtenerJSON hilo = new ObtenerJSON();
                     try {
-                        Toast.makeText(getApplicationContext(), R.string.DescargandoUsuarios, Toast.LENGTH_LONG).show();
                         cadena_json = hilo.execute(nacionalidad, genero, numero).get();
                         Toast.makeText(getApplicationContext(), getString(R.string.UsuariosDescargados, Integer.parseInt(numero)), Toast.LENGTH_LONG).show();
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
                     UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-                    int insertados = 0;
+                    long cont = 0;
                     //Parsear datos json e insertar en la bbdd
                     try {
                         JSONObject parser = new JSONObject(cadena_json);
@@ -97,18 +91,17 @@ public class PantallaNuevosUsuarios extends Activity {
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");
                             String password = login.getString("password");
-
                             //Comprobar fecha  de registro
                             Calendar fechaRegistro = Calendar.getInstance();
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
                             fechaRegistro.setTime(format.parse(fecha));
                             if(fechaRegistro.after(fechaUsuario)){
-                                mDbHelper.insertar(nombreCompleto, fecha, gender, imagen, localizacion, username, password);
-                                insertados++;
+                                cont += mDbHelper.insertar(nombreCompleto, fecha, gender, imagen, localizacion, username, password);
                             }
                         }
-                        Toast.makeText(getApplicationContext(), getString(R.string.UsuariosInsertados, insertados), Toast.LENGTH_LONG).show();
-                    } catch (JSONException | ParseException e) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.UsuariosInsertados, cont), Toast.LENGTH_LONG).show();
+                        finish();
+                    } catch (JSONException | ParseException  e) {
                         e.printStackTrace();
                     }
                 }
