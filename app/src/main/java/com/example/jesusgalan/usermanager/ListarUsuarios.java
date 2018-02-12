@@ -21,22 +21,22 @@ public class ListarUsuarios extends Activity {
         UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
             TableLayout Tabla= (TableLayout)findViewById(R.id.tabla);
-            TableRow fila = new TableRow(this);
-            TextView nombre =new TextView(this);
-            nombre.setText("Nombre");
-            fila.addView(nombre);
-            TextView genero =new TextView(this);
-            nombre.setText("Genero");
-            fila.addView(genero);
-            TextView fecha =new TextView(this);
-            nombre.setText("Fecha");
-            fila.addView(fecha);
-            TextView imagen =new TextView(this);
-            nombre.setText("Imagen");
-            fila.addView(imagen);
-            TextView Localizacion =new TextView(this);
-            nombre.setText("Localizacion");
-            fila.addView(Localizacion);
+//            TableRow fila = new TableRow(this);
+//            TextView nombre =new TextView(this);
+//            nombre.setText("Nombre");
+//            fila.addView(nombre);
+//            TextView genero =new TextView(this);
+//            nombre.setText("Genero");
+//            fila.addView(genero);
+//            TextView fecha =new TextView(this);
+//            nombre.setText("Fecha");
+//            fila.addView(fecha);
+//            TextView imagen =new TextView(this);
+//            nombre.setText("Imagen");
+//            fila.addView(imagen);
+//            TextView Localizacion =new TextView(this);
+//            nombre.setText("Localizacion");
+//            fila.addView(Localizacion);
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
             String[] projection = {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE,
