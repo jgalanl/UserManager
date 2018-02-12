@@ -2,6 +2,7 @@ package com.example.jesusgalan.usermanager;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -72,8 +73,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
-                    UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-                    long cont = 0;
+                    int cont = 0;
                     //Parsear datos json e insertar en la bbdd
                     try {
                         JSONObject parser = new JSONObject(cadena_json);
@@ -95,8 +95,12 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             Calendar fechaRegistro = Calendar.getInstance();
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
                             fechaRegistro.setTime(format.parse(fecha));
+
                             if(fechaRegistro.after(fechaUsuario)){
-                                cont += mDbHelper.insertar(nombreCompleto, fecha, gender, imagen, localizacion, username, password);
+                                UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
+                                mDbHelper.insertar(nombreCompleto, fecha, gender, imagen, localizacion, username, password);
+                                cont++;
+                                Log.d("holi", "s "+ cont);
                             }
                         }
                         Toast.makeText(getApplicationContext(), getString(R.string.UsuariosInsertados, cont), Toast.LENGTH_LONG).show();

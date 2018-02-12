@@ -16,6 +16,8 @@ public class ListarUsuarios extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_usuarios);
 
+        Log.d("holi", "listar usuarios");
+
         UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
             TableLayout Tabla= (TableLayout)findViewById(R.id.tabla);
@@ -43,14 +45,15 @@ public class ListarUsuarios extends Activity {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION
             };
-            Cursor users = db.query(UsuariosContract.UsuariosEntry.TABLE_NAME,projection,null,null,null,null,null);
+            Cursor users = db.query(UsuariosContract.UsuariosEntry.TABLE_NAME,projection,null,
+                    null,null,null,null);
+
+            Log.d("holi", "cursor creado");
             if (users.moveToFirst()) {
                 String itemId = users.getString(
                         users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE)
                 );
-                Log.d("User", itemId);
-
-
+                Log.d("holi", "item: "+itemId);
 
             }
 
