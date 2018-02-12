@@ -9,6 +9,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+
 public class ListarUsuarios extends Activity {
 
     @Override
@@ -20,23 +21,7 @@ public class ListarUsuarios extends Activity {
 
         UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
-            TableLayout Tabla= (TableLayout)findViewById(R.id.tabla);
-//            TableRow fila = new TableRow(this);
-//            TextView nombre =new TextView(this);
-//            nombre.setText("Nombre");
-//            fila.addView(nombre);
-//            TextView genero =new TextView(this);
-//            nombre.setText("Genero");
-//            fila.addView(genero);
-//            TextView fecha =new TextView(this);
-//            nombre.setText("Fecha");
-//            fila.addView(fecha);
-//            TextView imagen =new TextView(this);
-//            nombre.setText("Imagen");
-//            fila.addView(imagen);
-//            TextView Localizacion =new TextView(this);
-//            nombre.setText("Localizacion");
-//            fila.addView(Localizacion);
+            TableLayout tabla = findViewById(R.id.tabla);
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
             String[] projection = {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE,
@@ -49,13 +34,23 @@ public class ListarUsuarios extends Activity {
                     null,null,null,null);
 
             Log.d("holi", "cursor creado");
-            if (users.moveToFirst()) {
-                String itemId = users.getString(
-                        users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE)
-                );
-                Log.d("holi", "item: "+itemId);
-
+            while(users.moveToNext()) {
+                TableRow fila = new TableRow(this);
+                TextView nombre = new TextView(this);
+                nombre.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE)));
+                fila.addView(nombre);
+                TextView fecha = new TextView(this);
+                fecha.setText((users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA))));
+                fila.addView(fecha);
+                TextView genero = new TextView(this);
+                genero.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO)));
+                fila.addView(genero);
+                //Imagen
+                //Localizacion
+                tabla.addView(fila);
             }
+
+            users.close();
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -86,6 +86,12 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                                     .concat(name.getString("last"));
                             String fecha = jsonObject.getString("registered");
                             String gender = jsonObject.getString("gender");
+                            if(gender.equalsIgnoreCase("male")){
+                                gender = "M";
+                            }
+                            else {
+                                gender = "F";
+                            }
                             String imagen = jsonObject.getString("picture");
                             String localizacion = jsonObject.getString("location");
                             JSONObject login = jsonObject.getJSONObject("login");
@@ -93,12 +99,12 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             String password = login.getString("password");
                             //Comprobar fecha  de registro
                             Calendar fechaRegistro = Calendar.getInstance();
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                             fechaRegistro.setTime(format.parse(fecha));
 
                             if(fechaRegistro.after(fechaUsuario)){
                                 UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-                                mDbHelper.insertar(nombreCompleto, fecha, gender, imagen, localizacion, username, password);
+                                mDbHelper.insertar(nombreCompleto, format.format(fechaRegistro.getTime()), gender, imagen, localizacion, username, password);
                                 cont++;
                                 Log.d("holi", "s "+ cont);
                             }
