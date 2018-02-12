@@ -5,11 +5,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 public class ListarUsuarios extends Activity {
+
+    Button listar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +28,17 @@ public class ListarUsuarios extends Activity {
             nombre.setText("Nombre");
             fila.addView(nombre);
             TextView genero =new TextView(this);
-            nombre.setText("Genero");
+            genero.setText("Genero");
             fila.addView(genero);
             TextView fecha =new TextView(this);
-            nombre.setText("Fecha");
+            fecha.setText("Fecha");
             fila.addView(fecha);
             TextView imagen =new TextView(this);
-            nombre.setText("Imagen");
+            imagen.setText("Imagen");
             fila.addView(imagen);
-            TextView Localizacion =new TextView(this);
-            nombre.setText("Localizacion");
-            fila.addView(Localizacion);
+            TextView localizacion =new TextView(this);
+            localizacion.setText("Localizacion");
+            fila.addView(localizacion);
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
             String[] projection = {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE,
@@ -49,11 +53,8 @@ public class ListarUsuarios extends Activity {
                         users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE)
                 );
                 Log.d("User", itemId);
-
-
-
             }
-
+            Log.v("Users", "Entro en listar");
         } catch (Exception e) {
             e.printStackTrace();
         }
