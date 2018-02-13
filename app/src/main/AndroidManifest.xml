@@ -33,7 +33,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".PantallaNuevosUsuarios">
+        <activity android:name=".PantallaNuevosUsuarios"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="com.example.jesusgalan.usermanager.PantallaNuevosUsuarios" />
 

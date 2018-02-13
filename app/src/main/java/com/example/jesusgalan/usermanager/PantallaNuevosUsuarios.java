@@ -1,7 +1,9 @@
 package com.example.jesusgalan.usermanager;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -51,6 +53,8 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                 }
                 num = findViewById(R.id.editText);
                 String numero = num.getText().toString();
+                //Ocultar teclado
+                num.setInputType(InputType.TYPE_NULL);
                 //Comprobar el numero de usuarios maximo a insertar
                 if(Integer.parseInt(numero) > 5000){
                     Toast.makeText(getApplicationContext(), R.string.ErrorInsertar, Toast.LENGTH_LONG).show();
