@@ -5,12 +5,18 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.List;
+import java.util.Locale;
 
 
 public class ListarUsuarios extends Activity {
@@ -55,6 +61,21 @@ public class ListarUsuarios extends Activity {
                 imagen.setImageBitmap(bmp);
                 fila.addView(imagen);
                 //Localizacion
+                Button localizacion = new Button(this);
+                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                List<Address> list;
+                Log.d("holiiii", users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION)));
+                list = geocoder.getFromLocationName(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION)),1);
+
+                Log.d("holi", " "+list.size());
+
+                double latitude= list.get(0).getLatitude();
+                double longitude= list.get(0).getLongitude();
+                Log.d("holi", "latitud "+latitude);
+                Log.d("holi", "longitude "+longitude);
+
+
+                fila.addView(localizacion);
                 tabla.addView(fila);
             }
 

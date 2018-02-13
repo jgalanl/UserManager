@@ -34,7 +34,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_nuevos_usuarios);
-
         insertar = findViewById(R.id.boton_insertar);
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,11 +93,17 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             }
                             JSONObject picture = jsonObject.getJSONObject("picture");
                             String medium = picture.getString("medium");
-
                             ObtenerImagen obtenerImagen = new ObtenerImagen();
                             byte [] imagen = obtenerImagen.execute(medium).get();
 
-                            String localizacion = jsonObject.getString("location");
+                            JSONObject location = jsonObject.getJSONObject("location");
+                            String street = location.getString("street");
+                            String city = location.getString("city");
+                            String state = location.getString("state");
+                            String postcode = location.getString("postcode");
+                            String localizacion = street.concat(",")
+                                    .concat(city);
+
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");
                             String password = login.getString("password");
@@ -111,7 +116,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                                 UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
                                 mDbHelper.insertar(nombreCompleto, format.format(fechaRegistro.getTime()), gender, imagen, localizacion, username, password);
                                 cont++;
-                                Log.d("holi", "s "+ cont);
                             }
                         }
                         Toast.makeText(getApplicationContext(), getString(R.string.UsuariosInsertados, cont), Toast.LENGTH_LONG).show();
