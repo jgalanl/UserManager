@@ -3,8 +3,11 @@ package com.example.jesusgalan.usermanager;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -46,6 +49,11 @@ public class ListarUsuarios extends Activity {
                 genero.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO)));
                 fila.addView(genero);
                 //Imagen
+                ImageView imagen = new ImageView(this);
+                byte[] b = users.getBlob(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN));
+                Bitmap bmp= BitmapFactory.decodeByteArray(b, 0 , b.length);
+                imagen.setImageBitmap(bmp);
+                fila.addView(imagen);
                 //Localizacion
                 tabla.addView(fila);
             }

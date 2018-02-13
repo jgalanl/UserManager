@@ -42,8 +42,8 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
                 data.append(line);
                 line = bufferedReader.readLine();
             }
+            inputStream.close();
             bufferedReader.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

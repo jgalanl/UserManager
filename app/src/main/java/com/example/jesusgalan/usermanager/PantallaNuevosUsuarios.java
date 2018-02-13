@@ -92,7 +92,12 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             else {
                                 gender = "F";
                             }
-                            String imagen = jsonObject.getString("picture");
+                            JSONObject picture = jsonObject.getJSONObject("picture");
+                            String medium = picture.getString("medium");
+
+                            ObtenerImagen obtenerImagen = new ObtenerImagen();
+                            byte [] imagen = obtenerImagen.execute(medium).get();
+
                             String localizacion = jsonObject.getString("location");
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");
@@ -111,7 +116,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                         }
                         Toast.makeText(getApplicationContext(), getString(R.string.UsuariosInsertados, cont), Toast.LENGTH_LONG).show();
                         finish();
-                    } catch (JSONException | ParseException  e) {
+                    } catch (JSONException | ParseException | ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
