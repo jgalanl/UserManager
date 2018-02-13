@@ -45,6 +45,9 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     }
 
     void insertar(String nombreCompleto, String fecha, String gender, byte [] imagen, String localizacion, String username, String password){
+        //Comprobar que la base de datos esta creada
+        //AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this,"administracion", null, 1);
+        //SQLiteDatabase db.openOrCreateDatabase(path,cursor)
         SQLiteDatabase db = this.getWritableDatabase();
         //Crear un mapa de valores
         ContentValues values = new ContentValues();

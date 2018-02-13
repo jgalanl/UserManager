@@ -25,8 +25,6 @@ public class ListarUsuarios extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_usuarios);
 
-        Log.d("holi", "listar usuarios");
-
         UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
             TableLayout tabla = findViewById(R.id.tabla);
@@ -44,7 +42,6 @@ public class ListarUsuarios extends Activity {
             Cursor users = db.query(UsuariosContract.UsuariosEntry.TABLE_NAME,projection,null,
                     null,null,null,null);
 
-            Log.d("holi", "cursor creado");
             while(users.moveToNext()) {
                 TableRow fila = new TableRow(this);
                 TextView nombre = new TextView(this);
@@ -93,9 +90,7 @@ public class ListarUsuarios extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        Log.d("holi", ""+newConfig.orientation);
         super.onConfigurationChanged(newConfig);
-        Log.d("holi", ""+newConfig.orientation);
         TableLayout tabla = findViewById(R.id.tabla);
         TextView imagen = findViewById(R.id.imagen);
         TextView localizacion = findViewById(R.id.localizacion);

@@ -31,7 +31,6 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
             if(! strings[2].equalsIgnoreCase("")){
                 builder = builder.appendQueryParameter("results", strings[2]);
             }
-            Log.d("holi", "url"+builder.build().toString());
 
             URL url = new URL(builder.build().toString());
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
@@ -47,7 +46,6 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("holi", "json"+data);
         return data.toString();
     }
 }
