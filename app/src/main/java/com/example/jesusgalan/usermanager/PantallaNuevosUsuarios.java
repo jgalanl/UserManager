@@ -2,7 +2,6 @@ package com.example.jesusgalan.usermanager;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -100,9 +99,10 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             String street = location.getString("street");
                             String city = location.getString("city");
                             String state = location.getString("state");
-                            String postcode = location.getString("postcode");
+                            //String postcode = location.getString("postcode");
                             String localizacion = street.concat(",")
-                                    .concat(city);
+                                    .concat(city).concat(",")
+                                    .concat(state);
 
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");

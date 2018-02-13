@@ -22,6 +22,8 @@
     <string name="g_nero">Género</string>
     <string name="imagen_de_perfil">Imagen</string>
     <string name="localizaci_n">Localización</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
 
 
     <string-array name="nacionalidades">
