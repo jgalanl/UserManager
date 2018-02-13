@@ -33,7 +33,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_nuevos_usuarios);
-
         insertar = findViewById(R.id.boton_insertar);
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +71,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
-                    UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-                    long cont = 0;
+                    int cont = 0;
                     //Parsear datos json e insertar en la bbdd
                     try {
                         JSONObject parser = new JSONObject(cadena_json);
@@ -86,22 +84,43 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                                     .concat(name.getString("last"));
                             String fecha = jsonObject.getString("registered");
                             String gender = jsonObject.getString("gender");
-                            String imagen = jsonObject.getString("picture");
-                            String localizacion = jsonObject.getString("location");
+                            if(gender.equalsIgnoreCase("male")){
+                                gender = "M";
+                            }
+                            else {
+                                gender = "F";
+                            }
+                            JSONObject picture = jsonObject.getJSONObject("picture");
+                            String medium = picture.getString("medium");
+                            ObtenerImagen obtenerImagen = new ObtenerImagen();
+                            byte [] imagen = obtenerImagen.execute(medium).get();
+
+                            JSONObject location = jsonObject.getJSONObject("location");
+                            String street = location.getString("street");
+                            String city = location.getString("city");
+                            String state = location.getString("state");
+                            //String postcode = location.getString("postcode");
+                            String localizacion = street.concat(",")
+                                    .concat(city).concat(",")
+                                    .concat(state);
+
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");
                             String password = login.getString("password");
                             //Comprobar fecha  de registro
                             Calendar fechaRegistro = Calendar.getInstance();
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                             fechaRegistro.setTime(format.parse(fecha));
+
                             if(fechaRegistro.after(fechaUsuario)){
-                                cont += mDbHelper.insertar(nombreCompleto, fecha, gender, imagen, localizacion, username, password);
+                                UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
+                                mDbHelper.insertar(nombreCompleto, format.format(fechaRegistro.getTime()), gender, imagen, localizacion, username, password);
+                                cont++;
                             }
                         }
                         Toast.makeText(getApplicationContext(), getString(R.string.UsuariosInsertados, cont), Toast.LENGTH_LONG).show();
                         finish();
-                    } catch (JSONException | ParseException  e) {
+                    } catch (JSONException | ParseException | ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
