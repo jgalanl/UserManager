@@ -3,8 +3,11 @@ package com.example.jesusgalan.usermanager;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import static com.example.jesusgalan.usermanager.UsuariosContract.UsuariosEntry.TABLE_NAME;
 
 public class UsuariosDbHelper extends SQLiteOpenHelper{
     //Informacion de la bbdd
@@ -15,7 +18,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     private static final String BLOB_TYPE = " BLOB";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + UsuariosContract.UsuariosEntry.TABLE_NAME + " (" +
+            "CREATE TABLE " + TABLE_NAME + " (" +
                     UsuariosContract.UsuariosEntry._ID + "INTEGER PRIMARY KEY," +
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE + TEXT_TYPE + COMMA_SEP +
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA + INTEGER_TYPE + COMMA_SEP +
@@ -26,7 +29,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + UsuariosContract.UsuariosEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     UsuariosDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,10 +48,9 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     }
 
     void insertar(String nombreCompleto, String fecha, String gender, byte [] imagen, String localizacion, String username, String password){
-        //Comprobar que la base de datos esta creada
-        //AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this,"administracion", null, 1);
-        //SQLiteDatabase db.openOrCreateDatabase(path,cursor)
+
         SQLiteDatabase db = this.getWritableDatabase();
+
         //Crear un mapa de valores
         ContentValues values = new ContentValues();
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);
@@ -59,6 +61,6 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, username);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, password);
         //Insertar la informacion en la bbdd
-        db.insert(UsuariosContract.UsuariosEntry.TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
     }
 }
