@@ -1,10 +1,12 @@
 package com.example.jesusgalan.usermanager;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,6 +38,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_nuevos_usuarios);
+
         insertar = findViewById(R.id.boton_insertar);
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,5 +134,24 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_navegacion, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent nuevos_usuarios = new Intent("com.example.jesusgalan.usermanager.PantallaPrincipal");
+                startActivity(nuevos_usuarios);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
