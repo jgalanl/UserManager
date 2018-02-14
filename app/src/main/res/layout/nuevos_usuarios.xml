@@ -19,7 +19,8 @@
             android:layout_marginTop="12dp"
             android:padding="6dp"
             android:text="@string/introduce_los_datos_de_los_usuarios_que_quieres_insertar"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="normal|bold" />
 
         <TextView
             android:id="@+id/textView7"

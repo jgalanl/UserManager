@@ -30,7 +30,6 @@ public class PantallaPrincipal extends AppCompatActivity {
         listar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Cargar la actividad listar
                 Intent listar_usuarios=new Intent("com.example.jesusgalan.usermanager.ListarUsuarios");
                 startActivity(listar_usuarios);
                 onPause();

@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ListarUsuarios extends AppCompatActivity {
 
@@ -54,14 +53,13 @@ public class ListarUsuarios extends AppCompatActivity {
                 TextView genero = new TextView(this);
                 genero.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO)));
                 fila.addView(genero);
-                //Imagen
                 ImageView imagen = new ImageView(this);
                 byte[] b = users.getBlob(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN));
                 Bitmap bmp= BitmapFactory.decodeByteArray(b, 0 , b.length);
                 imagen.setImageBitmap(bmp);
                 fila.addView(imagen);
-                //Localizacion
                 Button localizacion = new Button(this);
+                localizacion.setBackgroundResource(R.drawable.common_google_signin_btn_icon_dark_normal);
                 final String loc = users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION));
                 localizacion.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -97,7 +95,6 @@ public class ListarUsuarios extends AppCompatActivity {
         TextView localizacion = findViewById(R.id.localizacion);
         TextView user = findViewById(R.id.user);
         TextView password = findViewById(R.id.password);
-        // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             imagen.setVisibility(View.GONE);
             localizacion.setVisibility(View.GONE);
@@ -107,7 +104,6 @@ public class ListarUsuarios extends AppCompatActivity {
             password.setVisibility(View.VISIBLE);
             tabla.setColumnCollapsed(5, false);
             tabla.setColumnCollapsed(6, false);
-            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
             user.setVisibility(View.GONE);
             password.setVisibility(View.GONE);
@@ -117,7 +113,6 @@ public class ListarUsuarios extends AppCompatActivity {
             localizacion.setVisibility(View.VISIBLE);
             tabla.setColumnCollapsed(3, false);
             tabla.setColumnCollapsed(4, false);
-            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
         }
     }
 
