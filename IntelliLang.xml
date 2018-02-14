@@ -1,0 +1,8 @@
+<application>
+  <component name="LanguageInjectionConfiguration">
+    <injection language="RoomSql" injector-id="xml">
+      <display-name>TextView/@layout_gravity</display-name>
+      <place><![CDATA[xmlAttribute().withLocalName(string().equalTo("layout_gravity")).withNamespace(string().equalTo("http://schemas.android.com/apk/res/android")).withParent(xmlTag().withLocalName(string().equalTo("TextView")))]]></place>
+    </injection>
+  </component>
+</application>
