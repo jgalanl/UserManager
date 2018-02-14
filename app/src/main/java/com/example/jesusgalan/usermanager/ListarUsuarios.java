@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,7 +36,6 @@ public class ListarUsuarios extends Activity {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD
-
             };
             Cursor users = db.query(UsuariosContract.UsuariosEntry.TABLE_NAME,projection,null,
                     null,null,null,null);

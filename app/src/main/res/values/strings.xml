@@ -4,8 +4,8 @@
     <string name="bienvenido_a_user_manager">Bienvenido a User Manager!</string>
     <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
     <string name="listar_usuarios">Listar usuarios</string>
-    <string name="insertar_nuevos_usuarios">Insertar nuevos usuarios</string>
-    <string name="introduce_los_datos_de_los_usuarios_que_quieres_insertar">Introduce los datos de los usuarios que quieres insertar:</string>
+    <string name="insertar_nuevos_usuarios">Insertar usuarios</string>
+    <string name="introduce_los_datos_de_los_usuarios_que_quieres_insertar">Introduce los datos de los usuarios que quieres insertar.</string>
     <string name="recuerda_que_ning_n_campo_es_obligario">Recuerda que ningún campo es obligario.</string>
     <string name="nacionalidad">Nacionalidad</string>
     <string name="male">Hombre</string>
@@ -24,6 +24,10 @@
     <string name="localizaci_n">Localización</string>
     <string name="user">User</string>
     <string name="password">Password</string>
+    <string name="patanlla_principal">Pantalla Principal</string>
+    <string name="insertar">Insertar</string>
+    <string name="label_pantalla_insertar">Insertar Usuarios</string>
+    <string name="lista_de_usuarios">Lista de Usuarios</string>
 
 
     <string-array name="nacionalidades">
@@ -45,5 +49,10 @@
         <item>TR</item>
         <item>US</item>
     </string-array>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_prueba">Prueba</string>
 
 </resources>

@@ -23,6 +23,7 @@ public class PantallaPrincipal extends AppCompatActivity {
             public void onClick(View view) {
                 Intent nuevos_usuarios = new Intent("com.example.jesusgalan.usermanager.PantallaNuevosUsuarios");
                 startActivity(nuevos_usuarios);
+                onPause();
             }
         });
 
@@ -32,6 +33,7 @@ public class PantallaPrincipal extends AppCompatActivity {
                 //Cargar la actividad listar
                 Intent listar_usuarios=new Intent("com.example.jesusgalan.usermanager.ListarUsuarios");
                 startActivity(listar_usuarios);
+                onPause();
             }
         });
 
