@@ -14,24 +14,22 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/textView7"
-            android:layout_marginTop="12dp"
             android:padding="6dp"
             android:text="@string/introduce_los_datos_de_los_usuarios_que_quieres_insertar"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="normal|bold" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/spinner_nacionalidad"
-            android:layout_alignTop="@+id/textView5"
-            android:layout_marginTop="66dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView5"
             android:padding="6dip"
             android:text="@string/recuerda_que_ning_n_campo_es_obligario"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/spinner_nacionalidad"

@@ -32,7 +32,8 @@
                         android:layout_height="wrap_content"
                         android:padding="3dip"
                         android:text="@string/nombre"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView31"
@@ -40,7 +41,8 @@
                         android:layout_height="wrap_content"
                         android:padding="3dip"
                         android:text="@string/registro"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView32"
@@ -48,7 +50,8 @@
                         android:layout_height="wrap_content"
                         android:padding="3dip"
                         android:text="@string/g_nero"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/imagen"
@@ -56,7 +59,8 @@
                         android:layout_height="wrap_content"
                         android:padding="3dip"
                         android:text="@string/imagen_de_perfil"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/localizacion"
@@ -64,7 +68,8 @@
                         android:layout_height="wrap_content"
                         android:padding="3dip"
                         android:text="@string/localizaci_n"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/user"
@@ -73,6 +78,7 @@
                         android:padding="3dip"
                         android:text="@string/user"
                         android:textSize="18sp"
+                        android:textStyle="bold"
                         android:visibility="gone" />
 
                     <TextView
@@ -82,6 +88,7 @@
                         android:padding="3dip"
                         android:text="@string/password"
                         android:textSize="18sp"
+                        android:textStyle="bold"
                         android:visibility="gone" />
                 </TableRow>
             </TableLayout>

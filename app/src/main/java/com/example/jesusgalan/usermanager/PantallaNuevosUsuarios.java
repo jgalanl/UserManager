@@ -99,15 +99,14 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                                 gender = "F";
                             }
                             JSONObject picture = jsonObject.getJSONObject("picture");
-                            String medium = picture.getString("medium");
+                            String large = picture.getString("large");
                             ObtenerImagen obtenerImagen = new ObtenerImagen();
-                            byte [] imagen = obtenerImagen.execute(medium).get();
+                            byte [] imagen = obtenerImagen.execute(large).get();
 
                             JSONObject location = jsonObject.getJSONObject("location");
                             String street = location.getString("street");
                             String city = location.getString("city");
                             String state = location.getString("state");
-                            //String postcode = location.getString("postcode");
                             String localizacion = street.concat(",")
                                     .concat(city).concat(",")
                                     .concat(state);
@@ -149,6 +148,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
             case R.id.home:
                 Intent nuevos_usuarios = new Intent("com.example.jesusgalan.usermanager.PantallaPrincipal");
                 startActivity(nuevos_usuarios);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

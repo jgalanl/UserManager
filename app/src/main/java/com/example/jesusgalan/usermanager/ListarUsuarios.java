@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,12 +46,17 @@ public class ListarUsuarios extends AppCompatActivity {
             while(users.moveToNext()) {
                 TableRow fila = new TableRow(this);
                 TextView nombre = new TextView(this);
+                nombre.setTextSize(18);
+                nombre.setPadding(10,0,30,0);
                 nombre.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE)));
                 fila.addView(nombre);
                 TextView fecha = new TextView(this);
+                fecha.setTextSize(18);
                 fecha.setText((users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA))));
                 fila.addView(fecha);
                 TextView genero = new TextView(this);
+                genero.setTextSize(18);
+                genero.setGravity(Gravity.CENTER);
                 genero.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO)));
                 fila.addView(genero);
                 ImageView imagen = new ImageView(this);
@@ -74,9 +80,12 @@ public class ListarUsuarios extends AppCompatActivity {
                 });
                 fila.addView(localizacion);
                 TextView user = new TextView(this);
+                user.setTextSize(18);
+                user.setPadding(0,0,30,0);
                 user.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO)));
                 fila.addView(user);
                 TextView password = new TextView(this);
+                password.setTextSize(18);
                 password.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD)));
                 fila.addView(password);
                 tabla.addView(fila);
@@ -129,6 +138,7 @@ public class ListarUsuarios extends AppCompatActivity {
             case R.id.home:
                 Intent nuevos_usuarios = new Intent("com.example.jesusgalan.usermanager.PantallaPrincipal");
                 startActivity(nuevos_usuarios);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

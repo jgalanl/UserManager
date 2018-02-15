@@ -2,7 +2,6 @@
     <string name="app_name">User Manager</string>
     <string name="action_settings">Settings</string>
     <string name="bienvenido_a_user_manager">Bienvenido a User Manager!</string>
-    <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
     <string name="listar_usuarios">Listar usuarios</string>
     <string name="insertar_nuevos_usuarios">Insertar usuarios</string>
     <string name="introduce_los_datos_de_los_usuarios_que_quieres_insertar">Introduce los datos de los usuarios que quieres insertar.</string>
@@ -28,7 +27,8 @@
     <string name="insertar">Insertar</string>
     <string name="label_pantalla_insertar">Insertar Usuarios</string>
     <string name="lista_de_usuarios">Lista de Usuarios</string>
-
+    <string name="home">home</string>
+    <string name="qu_quieres_hacer">¿Qué quieres hacer?</string>
 
     <string-array name="nacionalidades">
         <item>Por defecto</item>
@@ -49,11 +49,6 @@
         <item>TR</item>
         <item>US</item>
     </string-array>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_prueba">Prueba</string>
-    <string name="home">home</string>
+
 
 </resources>
