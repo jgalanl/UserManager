@@ -102,7 +102,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             String large = picture.getString("large");
                             ObtenerImagen obtenerImagen = new ObtenerImagen();
                             byte [] imagen = obtenerImagen.execute(large).get();
-
                             JSONObject location = jsonObject.getJSONObject("location");
                             String street = location.getString("street");
                             String city = location.getString("city");
@@ -110,7 +109,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             String localizacion = street.concat(",")
                                     .concat(city).concat(",")
                                     .concat(state);
-
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");
                             String password = login.getString("password");
@@ -118,7 +116,6 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             Calendar fechaRegistro = Calendar.getInstance();
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                             fechaRegistro.setTime(format.parse(fecha));
-
                             if(fechaRegistro.after(fechaUsuario)){
                                 UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
                                 mDbHelper.insertar(nombreCompleto, format.format(fechaRegistro.getTime()), gender, imagen, localizacion, username, password);

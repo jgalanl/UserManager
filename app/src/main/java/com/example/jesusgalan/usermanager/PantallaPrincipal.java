@@ -17,7 +17,6 @@ public class PantallaPrincipal extends AppCompatActivity {
 
         insertar = findViewById(R.id.boton_pantalla_insertar);
         listar = findViewById(R.id.boton_pantalla_listar);
-
         insertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,7 +34,5 @@ public class PantallaPrincipal extends AppCompatActivity {
                 onPause();
             }
         });
-
-
     }
 }

@@ -30,6 +30,5 @@ public class PantallaPresentacion extends AppCompatActivity {
           }
         };
         reloj.start();
-
     }
 }
