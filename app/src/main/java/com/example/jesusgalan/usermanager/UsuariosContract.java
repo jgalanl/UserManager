@@ -6,7 +6,6 @@ import android.provider.BaseColumns;
 
 final class UsuariosContract {
     private UsuariosContract(){}
-
     static class UsuariosEntry implements BaseColumns{
         static final String TABLE_NAME = "USUARIO";
         static final String COLUMN_NAME_NOMBRE = "nombre";
