@@ -25,16 +25,10 @@ public class PantallaPresentacion extends AppCompatActivity {
               finally{
                   Intent principal = new Intent("com.example.jesusgalan.usermanager.PantallaPrincipal");
                   startActivity(principal);
+                  finish();
               }
           }
         };
         reloj.start();
-
     }
-    protected void onPause(){
-        super.onPause();
-        finish();
-    }
-
-
 }
