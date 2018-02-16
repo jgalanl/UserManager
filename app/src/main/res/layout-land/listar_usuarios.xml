@@ -9,12 +9,12 @@
     <TableLayout
         android:id="@+id/tabla3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
         tools:ignore="UselessParent">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="46dp"
             android:orientation="vertical">
 
             <ImageView
@@ -25,62 +25,75 @@
                 tools:ignore="ContentDescription" />
 
             <RelativeLayout
-                android:layout_width="168dp"
+                android:layout_width="158dp"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView32"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:padding="3dip"
-                    android:text="@string/g_nero"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/textView32"
+                    android:layout_above="@+id/textView32"
+                    android:layout_centerHorizontal="true"
                     android:padding="3dip"
                     android:text="@string/nombre"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView31"
+                    android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/textView30"
                     android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
                     android:padding="3dip"
-                    android:text="@string/registro"
-                    android:textSize="14sp"
+                    android:text="@string/g_nero"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="191dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/password"
+                    android:layout_centerHorizontal="true"
+                    android:padding="3dip"
+                    android:text="@string/user"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="3dip"
+                    android:text="@string/password"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="102dp"
+                android:layout_width="156dp"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/localizacion"
+                    android:id="@+id/textView31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:padding="3dip"
-                    android:text="@string/localizaci_n"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:ignore="RelativeOverlap" />
-
+                    android:text="@string/registro"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
         </TableRow>

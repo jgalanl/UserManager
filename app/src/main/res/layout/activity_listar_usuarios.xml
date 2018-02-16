@@ -6,4 +6,5 @@
     tools:context="com.example.jesusgalan.usermanager.ListarUsuarios">
 
     <include layout="@layout/listar_usuarios"> </include>
+
 </RelativeLayout>
