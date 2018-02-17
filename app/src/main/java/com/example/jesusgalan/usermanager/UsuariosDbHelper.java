@@ -37,7 +37,6 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
-
     }
 
     @Override
@@ -46,13 +45,13 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    void insertar(String nombreCompleto, String fecha, String gender, byte [] imagen, String localizacion, String username, String password){
+    void insertar(String nombreCompleto, String fecha, String genero, byte [] imagen, String localizacion, String username, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         //Crear un mapa de valores
         ContentValues values = new ContentValues();
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, fecha);
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, gender);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, genero);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, localizacion);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, username);
