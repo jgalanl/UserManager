@@ -33,7 +33,6 @@ public class ListarUsuarios extends AppCompatActivity {
         UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
             TableLayout tabla = findViewById(R.id.tabla2);
-            //TableLayout tabla_land=findViewById(R.id.tabla4);
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
             String[] projection = {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE,
@@ -72,14 +71,13 @@ public class ListarUsuarios extends AppCompatActivity {
 
                 TextView genero = new TextView(this);
                 genero.setTextSize(14);
-                genero.setPadding(10,-10,40,0);
-                genero.setGravity(Gravity.RELATIVE_LAYOUT_DIRECTION);
+                genero.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                genero.setGravity(Gravity.CENTER);
                 genero.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO)));
                 fila.addView(genero);
 
                 Button localizacion = new Button(this);
                 localizacion.setBackgroundResource(R.drawable.common_google_signin_btn_icon_dark_normal);
-                localizacion.setPadding(10,45,30,0);
                 localizacion.setGravity(Gravity.CENTER);
                 final String loc = users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION));
                 localizacion.setOnClickListener(new View.OnClickListener() {
@@ -99,12 +97,14 @@ public class ListarUsuarios extends AppCompatActivity {
                 TextView user = new TextView(this);
                 user.setTextSize(14);
                 user.setPadding(0,0,30,0);
+                user.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
                 user.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO)));
                 user.setVisibility(View.GONE);
                 fila.addView(user);
                 TextView password = new TextView(this);
                 password.setTextSize(14);
                 password.setPadding(0,0,30,0);
+                password.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
                 password.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD)));
                 password.setVisibility(View.GONE);
                 fila.addView(password);
@@ -126,27 +126,19 @@ public class ListarUsuarios extends AppCompatActivity {
         TextView user = findViewById(R.id.user);
         TextView password = findViewById(R.id.password);
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //imagen.setVisibility(View.GONE);
             localizacion.setVisibility(View.GONE);
-            //tabla.setColumnCollapsed(3, true);
             tabla.setColumnCollapsed(3, true);
-           tabla_head.setColumnCollapsed(3, true);
+            tabla_head.setColumnCollapsed(3, true);
             user.setVisibility(View.VISIBLE);
             password.setVisibility(View.VISIBLE);
             tabla.setColumnCollapsed(4, false);
             tabla.setColumnCollapsed(5, false);
-            //tabla_head.setColumnCollapsed(5, false);
-            //tabla_head.setColumnCollapsed(6, false);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
             user.setVisibility(View.GONE);
             password.setVisibility(View.GONE);
             tabla.setColumnCollapsed(4, true);
             tabla.setColumnCollapsed(5, true);
-            //tabla_head.setColumnCollapsed(5, true);
-            //tabla_head.setColumnCollapsed(6, true);
-           // imagen.setVisibility(View.VISIBLE);
             localizacion.setVisibility(View.VISIBLE);
-           // tabla.setColumnCollapsed(3, false);
             tabla.setColumnCollapsed(3, false);
             tabla_head.setColumnCollapsed(3, false);
         }

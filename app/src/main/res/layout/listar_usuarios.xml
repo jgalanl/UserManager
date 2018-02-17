@@ -65,6 +65,7 @@
                     android:layout_centerVertical="true"
                     android:padding="3dip"
                     android:text="@string/g_nero"
+                    android:textAlignment="center"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -87,25 +88,43 @@
                     tools:ignore="RelativeOverlap" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/user"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:padding="3dip"
-                android:text="@string/user"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/password"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:padding="3dip"
-                android:text="@string/password"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/user"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:padding="3dip"
+                    android:text="@string/user"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/password"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:padding="3dip"
+                    android:text="@string/password"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
         </TableRow>
 
@@ -127,58 +146,43 @@
             <TableLayout
                 android:id="@+id/tabla2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 tools:ignore="UselessParent">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="0dp"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="86dp"
-                        android:layout_height="70dp"
                         tools:ignore="ContentDescription" />
 
                     <RelativeLayout
                         android:layout_width="125dp"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </RelativeLayout>
+                        android:layout_height="match_parent"></RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </RelativeLayout>
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"></RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="99dp"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="99dp"
-                            android:layout_height="wrap_content" />
-                    </RelativeLayout>
-
-                    <TextView
                         android:layout_width="70dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent"></RelativeLayout>
 
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content" />
+                    <RelativeLayout
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+                    </RelativeLayout>
 
                 </TableRow>
             </TableLayout>
