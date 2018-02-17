@@ -33,15 +33,16 @@ public class ListarUsuarios extends AppCompatActivity {
         UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
             TableLayout tabla = findViewById(R.id.tabla2);
+            //TableLayout tabla_land=findViewById(R.id.tabla4);
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
             String[] projection = {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN,
-                    UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION
-                    //UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO,
-                    //UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD
+                    UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION,
+                    UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO,
+                    UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD
             };
             AtomicReference<Cursor> users = new AtomicReference<>(db.query(UsuariosContract.UsuariosEntry.TABLE_NAME, projection, null,
                     null, null, null, null));
@@ -59,22 +60,22 @@ public class ListarUsuarios extends AppCompatActivity {
                 RelativeLayout columna =new RelativeLayout(this);
                 TextView nombre = new TextView(this);
                 nombre.setTextSize(14);
-                nombre.setPadding(10,0,30,40);
+                nombre.setPadding(0,0,0,40);
                 nombre.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE)));
                 columna.addView(nombre);
-                TextView genero = new TextView(this);
-                genero.setTextSize(14);
-                genero.setPadding(10,45,30,0);
-                genero.setGravity(Gravity.CENTER);
-                genero.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO)));
-                columna.addView(genero);
-                columna.setGravity(Gravity.CENTER_HORIZONTAL);
                 TextView fecha = new TextView(this);
                 fecha.setTextSize(14);
-                fecha.setPadding(10,90,30,20);
+                fecha.setPadding(0,90,0,20);
                 fecha.setText((users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA))));
                 columna.addView(fecha);
                 fila.addView(columna);
+
+                TextView genero = new TextView(this);
+                genero.setTextSize(14);
+                genero.setPadding(10,-10,40,0);
+                genero.setGravity(Gravity.RELATIVE_LAYOUT_DIRECTION);
+                genero.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO)));
+                fila.addView(genero);
 
                 Button localizacion = new Button(this);
                 localizacion.setBackgroundResource(R.drawable.common_google_signin_btn_icon_dark_normal);
@@ -94,15 +95,19 @@ public class ListarUsuarios extends AppCompatActivity {
                 });
 
                 fila.addView(localizacion,50,80);
-                /*TextView user = new TextView(this);
-                user.setTextSize(18);
+
+                TextView user = new TextView(this);
+                user.setTextSize(14);
                 user.setPadding(0,0,30,0);
-                user.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO)));
+                user.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO)));
+                user.setVisibility(View.GONE);
                 fila.addView(user);
                 TextView password = new TextView(this);
-                password.setTextSize(18);
-                password.setText(users.getString(users.getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD)));
-                fila.addView(password);*/
+                password.setTextSize(14);
+                password.setPadding(0,0,30,0);
+                password.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD)));
+                password.setVisibility(View.GONE);
+                fila.addView(password);
 
                 tabla.addView(fila);
             }
@@ -115,29 +120,35 @@ public class ListarUsuarios extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        TableLayout tabla = findViewById(R.id.tabla);
-        TextView imagen = findViewById(R.id.imagen);
+        TableLayout tabla =findViewById(R.id.tabla2);
+        TableLayout tabla_head =findViewById(R.id.tabla3);
         TextView localizacion = findViewById(R.id.localizacion);
         TextView user = findViewById(R.id.user);
         TextView password = findViewById(R.id.password);
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            imagen.setVisibility(View.GONE);
+            //imagen.setVisibility(View.GONE);
             localizacion.setVisibility(View.GONE);
+            //tabla.setColumnCollapsed(3, true);
             tabla.setColumnCollapsed(3, true);
-            tabla.setColumnCollapsed(4, true);
+           tabla_head.setColumnCollapsed(3, true);
             user.setVisibility(View.VISIBLE);
             password.setVisibility(View.VISIBLE);
+            tabla.setColumnCollapsed(4, false);
             tabla.setColumnCollapsed(5, false);
-            tabla.setColumnCollapsed(6, false);
+            //tabla_head.setColumnCollapsed(5, false);
+            //tabla_head.setColumnCollapsed(6, false);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
             user.setVisibility(View.GONE);
             password.setVisibility(View.GONE);
+            tabla.setColumnCollapsed(4, true);
             tabla.setColumnCollapsed(5, true);
-            tabla.setColumnCollapsed(6, true);
-            imagen.setVisibility(View.VISIBLE);
+            //tabla_head.setColumnCollapsed(5, true);
+            //tabla_head.setColumnCollapsed(6, true);
+           // imagen.setVisibility(View.VISIBLE);
             localizacion.setVisibility(View.VISIBLE);
+           // tabla.setColumnCollapsed(3, false);
             tabla.setColumnCollapsed(3, false);
-            tabla.setColumnCollapsed(4, false);
+            tabla_head.setColumnCollapsed(3, false);
         }
     }
 
