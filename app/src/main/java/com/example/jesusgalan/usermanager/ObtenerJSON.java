@@ -30,7 +30,6 @@ public class ObtenerJSON extends AsyncTask<String, Void, String> {
             if(! strings[2].equalsIgnoreCase("")){
                 builder = builder.appendQueryParameter("results", strings[2]);
             }
-
             URL url = new URL(builder.build().toString());
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             InputStream inputStream = httpsURLConnection.getInputStream();
