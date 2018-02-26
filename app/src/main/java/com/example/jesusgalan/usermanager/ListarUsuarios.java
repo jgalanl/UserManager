@@ -52,11 +52,11 @@ public class ListarUsuarios extends AppCompatActivity {
                 imagen.setPadding(5,5,5,5);
 
                 byte[] b = users.get().getBlob(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN));
-                Bitmap bmp= BitmapFactory.decodeByteArray(b, 0 , b.length);
+                Bitmap bmp = BitmapFactory.decodeByteArray(b, 0 , b.length);
                 imagen.setImageBitmap(bmp);
                 fila.addView(imagen,130,170);
 
-                RelativeLayout columna =new RelativeLayout(this);
+                RelativeLayout columna = new RelativeLayout(this);
                 TextView nombre = new TextView(this);
                 nombre.setTextSize(14);
                 nombre.setPadding(0,0,0,40);

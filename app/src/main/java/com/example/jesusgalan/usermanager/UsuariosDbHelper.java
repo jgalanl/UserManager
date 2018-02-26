@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import static com.example.jesusgalan.usermanager.UsuariosContract.UsuariosEntry.TABLE_NAME;
 
@@ -46,6 +47,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     }
 
     void insertar(String nombreCompleto, String fecha, String genero, byte [] imagen, String localizacion, String username, String password){
+        Log.d("holi", "aquiiii");
         SQLiteDatabase db = this.getWritableDatabase();
         //Crear un mapa de valores
         ContentValues values = new ContentValues();

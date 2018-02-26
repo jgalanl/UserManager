@@ -23,7 +23,7 @@ public class PantallaPresentacion extends AppCompatActivity {
                   e.printStackTrace();
               }
               finally{
-                  Intent principal = new Intent("com.example.jesusgalan.usermanager.PantallaPrincipal");
+                  Intent principal = new Intent("com.example.jesusgalan.usermanager.PantallaAutenticacion");
                   startActivity(principal);
                   finish();
               }
