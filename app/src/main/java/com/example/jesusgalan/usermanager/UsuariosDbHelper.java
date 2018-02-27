@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.concurrent.ExecutionException;
+
 import static com.example.jesusgalan.usermanager.UsuariosContract.UsuariosEntry.TABLE_NAME;
 
 public class UsuariosDbHelper extends SQLiteOpenHelper{
@@ -38,6 +40,22 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
+        ObtenerImagen obtenerImagen = new ObtenerImagen();
+        byte [] imagen = new byte[0];
+        try {
+            imagen = obtenerImagen.execute("https://randomuser.me/api/portraits/men/0.jpg").get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        ContentValues values = new ContentValues();
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, "Administrador");
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, "2018/01/01");
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, "M");
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, "Leganés");
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, "admin");
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, "admin");
+        sqLiteDatabase.insert(TABLE_NAME, null, values);
     }
 
     @Override
@@ -47,7 +65,6 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     }
 
     void insertar(String nombreCompleto, String fecha, String genero, byte [] imagen, String localizacion, String username, String password){
-        Log.d("holi", "aquiiii");
         SQLiteDatabase db = this.getWritableDatabase();
         //Crear un mapa de valores
         ContentValues values = new ContentValues();
