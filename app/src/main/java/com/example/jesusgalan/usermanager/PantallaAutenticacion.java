@@ -31,7 +31,8 @@ public class PantallaAutenticacion extends AppCompatActivity {
                 userText = findViewById(R.id.usuario);
                 passwordText = findViewById(R.id.password);
                 String usuario = userText.getText().toString();
-                String password = passwordText.getText().toString();
+                MD5 md5 = new MD5();
+                String password = md5.md5(passwordText.getText().toString());
 
                 Log.d("holi", usuario);
                 Log.d("holi", password);

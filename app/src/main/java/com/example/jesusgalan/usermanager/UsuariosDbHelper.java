@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.concurrent.ExecutionException;
 
@@ -49,12 +48,13 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         }
         ContentValues values = new ContentValues();
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, "Administrador");
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, "2018/01/01");
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, "2018-01-01");
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, "M");
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, "Leganés");
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, "admin");
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, "admin");
+        MD5 md5 = new MD5();
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, md5.md5("admin"));
         sqLiteDatabase.insert(TABLE_NAME, null, values);
     }
 
