@@ -53,8 +53,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, "Leganés");
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, "admin");
-        MD5 md5 = new MD5();
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, md5.md5("admin"));
+        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918");
         sqLiteDatabase.insert(TABLE_NAME, null, values);
     }
 

@@ -16,8 +16,6 @@ public class PantallaAutenticacion extends AppCompatActivity {
     Button sesion;
     EditText userText, passwordText;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +29,8 @@ public class PantallaAutenticacion extends AppCompatActivity {
                 userText = findViewById(R.id.usuario);
                 passwordText = findViewById(R.id.password);
                 String usuario = userText.getText().toString();
-                MD5 md5 = new MD5();
-                String password = md5.md5(passwordText.getText().toString());
+                SHA SHA = new SHA();
+                String password = SHA.sha(passwordText.getText().toString());
 
                 Log.d("holi", usuario);
                 Log.d("holi", password);

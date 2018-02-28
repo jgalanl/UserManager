@@ -4,10 +4,10 @@ package com.example.jesusgalan.usermanager;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-class MD5 {
-    String md5(String string){
+class SHA {
+    String sha(String string){
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.reset();
             messageDigest.update(string.getBytes());
             byte[] cadena = messageDigest.digest();

@@ -111,8 +111,8 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                                     .concat(state);
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");
-                            MD5 md5 = new MD5();
-                            String password = md5.md5(login.getString("password"));
+                            SHA SHA = new SHA();
+                            String password = SHA.sha(login.getString("password"));
                             //Comprobar fecha  de registro
                             Calendar fechaRegistro = Calendar.getInstance();
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
