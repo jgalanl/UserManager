@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="12dp"
         android:text="@string/introduce_tu_nombre_de_usuario_y_contrase_a_para_acceder_a_la_app"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp" />
