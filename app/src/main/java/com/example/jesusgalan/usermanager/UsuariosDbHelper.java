@@ -3,8 +3,8 @@ package com.example.jesusgalan.usermanager;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteOpenHelper;
 
 import java.util.concurrent.ExecutionException;
 
@@ -65,7 +65,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     }
 
     void insertar(String nombreCompleto, String fecha, String genero, byte [] imagen, String localizacion, String username, String password){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase("a");
         //Crear un mapa de valores
         ContentValues values = new ContentValues();
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);

@@ -3,14 +3,14 @@ package com.example.jesusgalan.usermanager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.Cursor;
 
 public class PantallaAutenticacion extends AppCompatActivity {
 
@@ -25,6 +25,7 @@ public class PantallaAutenticacion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_autenticacion);
+        SQLiteDatabase.loadLibs(this);
 
         //Preparar parametros de la consulta
         final String [] projection = {
@@ -42,7 +43,7 @@ public class PantallaAutenticacion extends AppCompatActivity {
             String [] selectionArgs = {usuario, password};
             //Crear instancia de la bbdd y recuperar usuario
             UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+            SQLiteDatabase db = mDbHelper.getReadableDatabase("a");
             Cursor cursor = db.query(UsuariosContract.UsuariosEntry.TABLE_NAME, projection, selection,
                     selectionArgs, null, null, null);
             //Comprobar resultado de la consulta
@@ -70,7 +71,7 @@ public class PantallaAutenticacion extends AppCompatActivity {
                 String [] selectionArgs = {usuario, password};
                 //Crear instancia de la bbdd y recuperar usuario
                 UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-                SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                SQLiteDatabase db = mDbHelper.getReadableDatabase("a");
                 Cursor cursor = db.query(UsuariosContract.UsuariosEntry.TABLE_NAME, projection, selection,
                         selectionArgs, null, null, null);
                 //Comprobar resultado de la consulta

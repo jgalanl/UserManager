@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +40,7 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_nuevos_usuarios);
+        SQLiteDatabase.loadLibs(this);
 
         insertar = findViewById(R.id.boton_insertar);
         insertar.setOnClickListener(new View.OnClickListener() {

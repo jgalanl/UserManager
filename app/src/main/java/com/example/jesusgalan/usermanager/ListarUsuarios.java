@@ -2,8 +2,6 @@ package com.example.jesusgalan.usermanager;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -20,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.Cursor;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -33,7 +33,8 @@ public class ListarUsuarios extends AppCompatActivity {
         UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
             TableLayout tabla = findViewById(R.id.tabla2);
-            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+            SQLiteDatabase.loadLibs(this);
+            SQLiteDatabase db = mDbHelper.getReadableDatabase("a");
             String[] projection = {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO,
