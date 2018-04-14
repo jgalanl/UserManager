@@ -1,6 +1,8 @@
 package com.example.jesusgalan.usermanager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +25,9 @@ import net.sqlcipher.Cursor;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.example.jesusgalan.usermanager.PantallaAutenticacion.pref_clave;
+import static com.example.jesusgalan.usermanager.PantallaAutenticacion.preferencias;
+
 public class ListarUsuarios extends AppCompatActivity {
 
     @Override
@@ -30,11 +35,20 @@ public class ListarUsuarios extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_usuarios);
 
-        UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
         try {
             TableLayout tabla = findViewById(R.id.tabla2);
+            //Obtener la palabra aleatoria cifrada
+            SharedPreferences sharedPreferences = getSharedPreferences(preferencias, Context.MODE_PRIVATE);
+            String passwordcip = sharedPreferences.getString(pref_clave, "");
+            //Generar la password
+            SHA sha = new SHA();
+            String password = sha.sha("admin");
+            //Obtener la password de la bbdd con la clave y la password
+            String clave = Crypto.decryptPbkdf2(passwordcip, password);
+            //Acceder la bbdd
             SQLiteDatabase.loadLibs(this);
-            SQLiteDatabase db = mDbHelper.getReadableDatabase("a");
+            UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
+            SQLiteDatabase db = mDbHelper.getReadableDatabase(clave);
             String[] projection = {
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE,
                     UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO,
@@ -94,7 +108,6 @@ public class ListarUsuarios extends AppCompatActivity {
                 });
 
                 fila.addView(localizacion,50,80);
-
                 TextView user = new TextView(this);
                 user.setTextSize(14);
                 user.setPadding(0,0,30,0);
@@ -102,17 +115,17 @@ public class ListarUsuarios extends AppCompatActivity {
                 user.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO)));
                 user.setVisibility(View.GONE);
                 fila.addView(user);
-                TextView password = new TextView(this);
-                password.setTextSize(14);
-                password.setPadding(0,0,30,0);
-                password.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-                password.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD)));
-                password.setVisibility(View.GONE);
-                fila.addView(password);
-
+                TextView passworduser = new TextView(this);
+                passworduser.setTextSize(14);
+                passworduser.setPadding(0,0,30,0);
+                passworduser.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                passworduser.setText(users.get().getString(users.get().getColumnIndexOrThrow(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD)));
+                passworduser.setVisibility(View.GONE);
+                fila.addView(passworduser);
                 tabla.addView(fila);
             }
             users.get().close();
+            db.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
