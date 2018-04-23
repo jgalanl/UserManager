@@ -41,6 +41,7 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
         //Generar contraseña de la bbdd
         SHA sha = new SHA();
         String password = sha.sha("admin");

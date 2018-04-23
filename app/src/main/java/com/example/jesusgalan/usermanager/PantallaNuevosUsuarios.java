@@ -97,7 +97,14 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                     SHA sha = new SHA();
                     String password = sha.sha("admin");
                     //Obtener la password de la bbdd con la clave y la password
-                    String clave = Crypto.decryptPbkdf2(passwordcip, password);
+                    //String clave = Crypto.decryptPbkdf2(passwordcip, password);
+
+                    String clave = null;
+                    try {
+                        clave = KeystoreProvider.decrypt("Claves", passwordcip);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //Acceder la bbdd
                     SQLiteDatabase.loadLibs(getApplicationContext());
                     UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());

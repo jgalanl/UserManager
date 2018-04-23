@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.camera2.CaptureResult;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +45,9 @@ public class ListarUsuarios extends AppCompatActivity {
             SHA sha = new SHA();
             String password = sha.sha("admin");
             //Obtener la password de la bbdd con la clave y la password
-            String clave = Crypto.decryptPbkdf2(passwordcip, password);
+            //String clave = Crypto.decryptPbkdf2(passwordcip, password);
+
+            String clave = KeystoreProvider.decrypt("CN=Claves",passwordcip);
             //Acceder la bbdd
             SQLiteDatabase.loadLibs(this);
             UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());

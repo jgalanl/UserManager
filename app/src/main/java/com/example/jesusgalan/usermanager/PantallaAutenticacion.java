@@ -12,6 +12,11 @@ import android.widget.Toast;
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.Cursor;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.cert.CertificateException;
 import java.util.Random;
 
 import javax.crypto.SecretKey;
@@ -54,7 +59,13 @@ public class PantallaAutenticacion extends AppCompatActivity {
             SHA sha = new SHA();
             String password = sha.sha("admin");
             //Obtener la password de la bbdd con la clave y la password
-            String passwordbbdd = Crypto.decryptPbkdf2(clave, password);
+            //String passwordbbdd = Crypto.decryptPbkdf2(clave, password);
+
+
+              String  passwordbbdd = KeystoreProvider.decrypt("CN=Claves",password);
+
+
+
             UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
             SQLiteDatabase db = mDbHelper.getReadableDatabase(passwordbbdd);
             Cursor cursor = db.query(TABLE_NAME, projection, selection,
@@ -82,6 +93,19 @@ public class PantallaAutenticacion extends AppCompatActivity {
                 SHA sha = new SHA();
                 passwordUsuario = sha.sha(passwordText.getText().toString());
 
+                //Manejador de almacen claves KeyStore
+                KeystoreProvider.loadKeyStore();
+                //Generar par de claves
+
+                try {
+                    KeystoreProvider.generateNewKeyPair("Claves", getApplicationContext());
+                } catch (NoSuchProviderException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                }
                 //Generar contraseña de la bbdd
                 String password = sha.sha("admin");
                 //Generar palabra aleatoria a partir de la password
@@ -92,6 +116,10 @@ public class PantallaAutenticacion extends AppCompatActivity {
                     stringBuilder.append(password.charAt(random.nextInt(password.length())));
                 }
                 String passwordbbdd = stringBuilder.toString();
+
+
+
+
                 //Crear instancia de la bbdd
                 SQLiteDatabase.loadLibs(getApplicationContext());
                 UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
@@ -107,12 +135,15 @@ public class PantallaAutenticacion extends AppCompatActivity {
                     db.close();
                     //Guardar preferencias, incluida la clave de la bbdd cifrada
                     //Cifrar palabra aleatoria con password
-                    //Obtener Salt
+                    /*//Obtener Salt
                     byte salt [] = Crypto.generateSalt();
                     //Obtener clave cifrado PBE
                     SecretKey secretKey = Crypto.deriveKeyPbkdf2(salt, password);
                     //Obtener palabra aleatoria cifrada
-                    String passwordcip = Crypto.encrypt(passwordbbdd, secretKey, salt);
+                    String passwordcip = Crypto.encrypt(passwordbbdd, secretKey, salt);*/
+
+                    String passwordcip = KeystoreProvider.encrypt("CN=Claves", passwordbbdd);
+
                     //Guardar passwordcip en shared preferences
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(pref_nombre, usuario);
