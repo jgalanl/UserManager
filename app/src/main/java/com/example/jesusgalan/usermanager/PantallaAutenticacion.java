@@ -62,7 +62,7 @@ public class PantallaAutenticacion extends AppCompatActivity {
             //String passwordbbdd = Crypto.decryptPbkdf2(clave, password);
 
 
-              String  passwordbbdd = KeystoreProvider.decrypt("CN=Claves",password);
+              String  passwordbbdd = KeystoreProvider.decrypt("Claves",password);
 
 
 
@@ -142,7 +142,7 @@ public class PantallaAutenticacion extends AppCompatActivity {
                     //Obtener palabra aleatoria cifrada
                     String passwordcip = Crypto.encrypt(passwordbbdd, secretKey, salt);*/
 
-                    String passwordcip = KeystoreProvider.encrypt("CN=Claves", passwordbbdd);
+                    String passwordcip = KeystoreProvider.encrypt("Claves", passwordbbdd);
 
                     //Guardar passwordcip en shared preferences
                     SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -9,12 +9,14 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.security.interfaces.RSAPrivateKey;
@@ -39,6 +41,7 @@ public static void loadKeyStore(){
     try{
          keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
         keyStore.load(null);
+
     } catch (CertificateException | NoSuchAlgorithmException | KeyStoreException | IOException e) {
         e.printStackTrace();
     }
@@ -55,12 +58,12 @@ public static void loadKeyStore(){
                 .setStartDate(start.getTime()).setEndDate(end.getTime()).build();
         KeyPairGenerator gen =KeyPairGenerator.getInstance("RSA", ANDROID_KEYSTORE);
         gen.initialize(spec);
-        gen.generateKeyPair();
+        KeyPair keyPair=gen.generateKeyPair();
     }
 
     //Obtenemos clave privada
     public static PrivateKey loadPrivateKey(String alias) throws KeyStoreException, UnrecoverableEntryException, NoSuchAlgorithmException {
-        if (keyStore.isKeyEntry(alias)) {
+        if (!keyStore.isKeyEntry(alias)) {
             Log.e(TAG, "Could not find key alias: " + alias);
             return null;
         }
@@ -75,29 +78,46 @@ public static void loadKeyStore(){
     //Cifrar
     public static String encrypt(String alias, String contrasena) {
         try {
+            Log.e(TAG, "Justo antes de coger la calve publica keystore " +keyStore);
+            Log.e(TAG, "Justo antes de coger la calve publica get ebtry" +keyStore.getEntry(alias, null));
+
 
             KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
-            RSAPublicKey publicKey = (RSAPublicKey) privateKeyEntry.getCertificate().getPublicKey();
 
-            Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", "AndroidOpenSSL");
+            Log.e(TAG, "Justo antes de coger la calve publica " +privateKeyEntry);
+            PublicKey publicKey = privateKeyEntry.getCertificate().getPublicKey();
+
+            Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             inCipher.init(Cipher.ENCRYPT_MODE, publicKey);
             byte[] cipherText = inCipher.doFinal(contrasena.getBytes("UTF-8"));
             return String.valueOf(cipherText);
-        } catch (NoSuchAlgorithmException | UnrecoverableEntryException | BadPaddingException | UnsupportedEncodingException | InvalidKeyException | KeyStoreException | NoSuchPaddingException | IllegalBlockSizeException | NoSuchProviderException e) {
+        } catch (NoSuchAlgorithmException | UnrecoverableEntryException | BadPaddingException |
+                UnsupportedEncodingException | InvalidKeyException | KeyStoreException |
+                NoSuchPaddingException | IllegalBlockSizeException e) {
             throw new RuntimeException(e);
         }
     }
     //Descifrar
     public static String decrypt(String alias, String contrasena)  {
         try {
+            try{
+                keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
+                keyStore.load(null);
+
+            } catch (CertificateException | NoSuchAlgorithmException | KeyStoreException | IOException e) {
+                e.printStackTrace();
+            }
             PrivateKey clavePrivada = loadPrivateKey(alias);
             /*KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
-            RSAPrivateKey clavePrivada = (RSAPrivateKey) privateKeyEntry.getCertificate();*/
-            Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", "AndroidOpenSSL");
+            PrivateKey clavePrivada =  privateKeyEntry.getPrivateKey();
+            */Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            Log.e(TAG, "Justo antes de coger la calve privada " +clavePrivada);
             inCipher.init(Cipher.ENCRYPT_MODE, clavePrivada);
             byte[] cipherText = inCipher.doFinal(contrasena.getBytes("UTF-8"));
             return String.valueOf(cipherText);
-        } catch (NoSuchAlgorithmException | UnrecoverableEntryException | BadPaddingException | UnsupportedEncodingException | InvalidKeyException | KeyStoreException | NoSuchPaddingException | IllegalBlockSizeException | NoSuchProviderException e) {
+        } catch (NoSuchAlgorithmException | UnrecoverableEntryException |
+                BadPaddingException | UnsupportedEncodingException | InvalidKeyException
+                | KeyStoreException | NoSuchPaddingException | IllegalBlockSizeException e) {
             throw new RuntimeException(e);
         }
     }

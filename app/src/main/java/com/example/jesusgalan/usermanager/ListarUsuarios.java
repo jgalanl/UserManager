@@ -47,7 +47,7 @@ public class ListarUsuarios extends AppCompatActivity {
             //Obtener la password de la bbdd con la clave y la password
             //String clave = Crypto.decryptPbkdf2(passwordcip, password);
 
-            String clave = KeystoreProvider.decrypt("CN=Claves",passwordcip);
+            String clave = KeystoreProvider.decrypt("Claves",passwordcip);
             //Acceder la bbdd
             SQLiteDatabase.loadLibs(this);
             UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
