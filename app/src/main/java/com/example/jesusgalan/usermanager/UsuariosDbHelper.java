@@ -3,9 +3,11 @@ package com.example.jesusgalan.usermanager;
 
 import android.content.ContentValues;
 import android.content.Context;
+
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.jesusgalan.usermanager.UsuariosContract.UsuariosEntry.TABLE_NAME;
@@ -32,13 +34,29 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
 
+
     UsuariosDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+        //Generar contraseña de la bbdd
+        SHA sha = new SHA();
+        String password = sha.sha("admin");
+        //Generar palabra aleatoria a partir de la password
+        StringBuilder stringBuilder = new StringBuilder();
+        Random random = new Random();
+        random.setSeed(6);
+        for(int i = 0; i < password.length(); i++){
+            stringBuilder.append(password.charAt(random.nextInt(password.length())));
+        }
+        String passwordbbdd = stringBuilder.toString();
+        //Cambiar password de la bbdd
+        sqLiteDatabase.changePassword(passwordbbdd);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
+        //Insertar usuario admin
         ObtenerImagen obtenerImagen = new ObtenerImagen();
         byte [] imagen = new byte[0];
         try {
@@ -53,7 +71,6 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, "Leganés");
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, "admin");
-        SHA sha = new SHA();
         values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, sha.sha("admin"));
         sqLiteDatabase.insert(TABLE_NAME, null, values);
     }
@@ -62,20 +79,5 @@ public class UsuariosDbHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         onCreate(sqLiteDatabase);
-    }
-
-    void insertar(String nombreCompleto, String fecha, String genero, byte [] imagen, String localizacion, String username, String password){
-        SQLiteDatabase db = this.getWritableDatabase("a");
-        //Crear un mapa de valores
-        ContentValues values = new ContentValues();
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, fecha);
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, genero);
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, localizacion);
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, username);
-        values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, password);
-        //Insertar la informacion en la bbdd
-        db.insert(TABLE_NAME, null, values);
     }
 }

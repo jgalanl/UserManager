@@ -1,6 +1,9 @@
 package com.example.jesusgalan.usermanager;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -26,6 +29,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.jesusgalan.usermanager.PantallaAutenticacion.pref_clave;
+import static com.example.jesusgalan.usermanager.PantallaAutenticacion.preferencias;
+import static com.example.jesusgalan.usermanager.UsuariosContract.UsuariosEntry.TABLE_NAME;
 
 public class PantallaNuevosUsuarios extends AppCompatActivity {
 
@@ -83,6 +90,25 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     int cont = 0;
+                    //Obtener la palabra aleatoria cifrada
+                    SharedPreferences sharedPreferences = getSharedPreferences(preferencias, Context.MODE_PRIVATE);
+                    String passwordcip = sharedPreferences.getString(pref_clave, "");
+                    //Generar la password
+                    SHA sha = new SHA();
+                    String password = sha.sha("admin");
+                    //Obtener la password de la bbdd con la clave y la password
+                    //String clave = Crypto.decryptPbkdf2(passwordcip, password);
+
+                    String clave = null;
+                    try {
+                        clave = KeystoreProvider.decrypt("Claves", passwordcip);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //Acceder la bbdd
+                    SQLiteDatabase.loadLibs(getApplicationContext());
+                    UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
+                    SQLiteDatabase db = mDbHelper.getReadableDatabase(clave);
                     //Parsear datos json e insertar en la bbdd
                     try {
                         JSONObject parser = new JSONObject(cadena_json);
@@ -115,17 +141,26 @@ public class PantallaNuevosUsuarios extends AppCompatActivity {
                             JSONObject login = jsonObject.getJSONObject("login");
                             String username = login.getString("username");
                             SHA SHA = new SHA();
-                            String password = SHA.sha(login.getString("password"));
+                            String passwordUser = SHA.sha(login.getString("password"));
                             //Comprobar fecha  de registro
                             Calendar fechaRegistro = Calendar.getInstance();
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                             fechaRegistro.setTime(format.parse(fecha));
                             if(fechaRegistro.after(fechaUsuario)){
-                                UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
-                                mDbHelper.insertar(nombreCompleto, format.format(fechaRegistro.getTime()), gender, imagen, localizacion, username, password);
+                                ContentValues values = new ContentValues();
+                                values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_NOMBRE, nombreCompleto);
+                                values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_FECHA, fecha);
+                                values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_GENERO, gender);
+                                values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_IMAGEN, imagen);
+                                values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_LOCALIZACION, localizacion);
+                                values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_USUARIO, username);
+                                values.put(UsuariosContract.UsuariosEntry.COLUMN_NAME_PASSWORD, passwordUser);
+                                //Insertar la informacion en la bbdd
+                                db.insert(TABLE_NAME, null, values);
                                 cont++;
                             }
                         }
+                        db.close();
                         Toast.makeText(getApplicationContext(), getString(R.string.UsuariosInsertados, cont), Toast.LENGTH_LONG).show();
                         finish();
                     } catch (JSONException | ParseException | ExecutionException | InterruptedException e) {
