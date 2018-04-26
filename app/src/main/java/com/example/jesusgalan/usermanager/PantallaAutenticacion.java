@@ -54,17 +54,9 @@ public class PantallaAutenticacion extends AppCompatActivity {
             String passwordUsuario = sharedPreferences.getString(pref_password, "");
             String clave = sharedPreferences.getString(pref_clave,"");
             String [] selectionArgs = {usuario, passwordUsuario};
-            //Crear instancia de la bbdd y recuperar usuario
-            //Generar la password
-            SHA sha = new SHA();
-            String password = sha.sha("admin");
+
             //Obtener la password de la bbdd con la clave y la password
-            //String passwordbbdd = Crypto.decryptPbkdf2(clave, password);
-
-
-              String  passwordbbdd = KeystoreProvider.decrypt("Claves",clave);
-
-
+            String  passwordbbdd = KeystoreProvider.decrypt("Claves",clave);
 
             UsuariosDbHelper mDbHelper = new UsuariosDbHelper(getApplicationContext());
             SQLiteDatabase db = mDbHelper.getReadableDatabase(passwordbbdd);
@@ -130,15 +122,7 @@ public class PantallaAutenticacion extends AppCompatActivity {
                 if (cursor.getCount() == 1){
                     cursor.close();
                     db.close();
-                    //Guardar preferencias, incluida la clave de la bbdd cifrada
-                    //Cifrar palabra aleatoria con password
-                    /*//Obtener Salt
-                    byte salt [] = Crypto.generateSalt();
-                    //Obtener clave cifrado PBE
-                    SecretKey secretKey = Crypto.deriveKeyPbkdf2(salt, password);
                     //Obtener palabra aleatoria cifrada
-                    String passwordcip = Crypto.encrypt(passwordbbdd, secretKey, salt);*/
-
                     String passwordcip = KeystoreProvider.encrypt("Claves", passwordbbdd);
 
                     //Guardar passwordcip en shared preferences

@@ -38,7 +38,6 @@ private static final String ANDROID_KEYSTORE="AndroidKeyStore";
 private static final String TAG = KeystoreProvider.class.getSimpleName();
 
     static KeyStore keyStore;
-    static byte [] cifrado;
 //Método del manejador del amacen
 public static void loadKeyStore(){
     try{
@@ -81,15 +80,13 @@ public static void loadKeyStore(){
     //Cifrar
     public static String encrypt(String alias, String contrasena) {
         try {
-            Log.e(TAG, "Justo antes de coger la calve publica keystore " +keyStore);
             KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
 
             PublicKey publicKey = privateKeyEntry.getCertificate().getPublicKey();
 
             Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             inCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-            cifrado = inCipher.doFinal(contrasena.getBytes("UTF-8"));
-            Log.e(TAG,"TAmaño contra cifrada encrypt "+String.format(toBase64(cifrado)).length());
+            byte [] cifrado = inCipher.doFinal(contrasena.getBytes("UTF-8"));
             return String.format(toBase64(cifrado));
         } catch (NoSuchAlgorithmException | UnrecoverableEntryException | BadPaddingException |
                 UnsupportedEncodingException | InvalidKeyException | KeyStoreException |
@@ -108,16 +105,13 @@ public static void loadKeyStore(){
                 e.printStackTrace();
             }
             PrivateKey clavePrivada = loadPrivateKey(alias);
-            /*KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
-            PrivateKey clavePrivada =  privateKeyEntry.getPrivateKey();
-            */Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-            Log.e(TAG, "Justo antes de coger la calve privada " +clavePrivada);
+            Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             inCipher.init(Cipher.DECRYPT_MODE, clavePrivada);
-            Log.e(TAG,"Tamaño de contrasena "+fromBase64(contrasena).length);
             byte [] contra =fromBase64(contrasena);
             byte[] cipherText = inCipher.doFinal(contra);
 
             String plainrStr = new String(cipherText, "UTF-8");
+
             return plainrStr;
         } catch (NoSuchAlgorithmException | UnrecoverableEntryException |
                 BadPaddingException | UnsupportedEncodingException | InvalidKeyException
