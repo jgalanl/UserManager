@@ -112,7 +112,7 @@ public static void loadKeyStore(){
             PrivateKey clavePrivada =  privateKeyEntry.getPrivateKey();
             */Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             Log.e(TAG, "Justo antes de coger la calve privada " +clavePrivada);
-            inCipher.init(Cipher.ENCRYPT_MODE, clavePrivada);
+            inCipher.init(Cipher.DECRYPT_MODE, clavePrivada);
             byte[] cipherText = inCipher.doFinal(contrasena.getBytes("UTF-8"));
             return String.valueOf(cipherText);
         } catch (NoSuchAlgorithmException | UnrecoverableEntryException |
