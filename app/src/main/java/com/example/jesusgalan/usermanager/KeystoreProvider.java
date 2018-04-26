@@ -29,6 +29,9 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.security.auth.x500.X500Principal;
 
+import static com.example.jesusgalan.usermanager.Crypto.fromBase64;
+import static com.example.jesusgalan.usermanager.Crypto.toBase64;
+
 
 public class KeystoreProvider {
 
@@ -36,6 +39,7 @@ private static final String ANDROID_KEYSTORE="AndroidKeyStore";
 private static final String TAG = KeystoreProvider.class.getSimpleName();
 
     static KeyStore keyStore;
+    static byte [] cifrado;
 //Método del manejador del amacen
 public static void loadKeyStore(){
     try{
@@ -79,18 +83,15 @@ public static void loadKeyStore(){
     public static String encrypt(String alias, String contrasena) {
         try {
             Log.e(TAG, "Justo antes de coger la calve publica keystore " +keyStore);
-            Log.e(TAG, "Justo antes de coger la calve publica get ebtry" +keyStore.getEntry(alias, null));
-
-
             KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
 
-            Log.e(TAG, "Justo antes de coger la calve publica " +privateKeyEntry);
             PublicKey publicKey = privateKeyEntry.getCertificate().getPublicKey();
 
             Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             inCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-            byte[] cipherText = inCipher.doFinal(contrasena.getBytes("UTF-8"));
-            return String.valueOf(cipherText);
+            cifrado = inCipher.doFinal(contrasena.getBytes("UTF-8"));
+            Log.e(TAG,"TAmaño contra cifrada encrypt "+String.format(toBase64(cifrado)).length());
+            return String.format(toBase64(cifrado));
         } catch (NoSuchAlgorithmException | UnrecoverableEntryException | BadPaddingException |
                 UnsupportedEncodingException | InvalidKeyException | KeyStoreException |
                 NoSuchPaddingException | IllegalBlockSizeException e) {
@@ -113,8 +114,12 @@ public static void loadKeyStore(){
             */Cipher inCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             Log.e(TAG, "Justo antes de coger la calve privada " +clavePrivada);
             inCipher.init(Cipher.DECRYPT_MODE, clavePrivada);
-            byte[] cipherText = inCipher.doFinal(contrasena.getBytes("UTF-8"));
-            return String.valueOf(cipherText);
+            Log.e(TAG,"Tamaño de contrasena "+fromBase64(contrasena).length);
+            byte [] contra =fromBase64(contrasena);
+            byte[] cipherText = inCipher.doFinal(contra);
+
+            String plainrStr = new String(cipherText, "UTF-8");
+            return plainrStr;
         } catch (NoSuchAlgorithmException | UnrecoverableEntryException |
                 BadPaddingException | UnsupportedEncodingException | InvalidKeyException
                 | KeyStoreException | NoSuchPaddingException | IllegalBlockSizeException e) {

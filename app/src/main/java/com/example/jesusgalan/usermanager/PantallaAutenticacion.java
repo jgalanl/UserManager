@@ -62,7 +62,7 @@ public class PantallaAutenticacion extends AppCompatActivity {
             //String passwordbbdd = Crypto.decryptPbkdf2(clave, password);
 
 
-              String  passwordbbdd = KeystoreProvider.decrypt("Claves",password);
+              String  passwordbbdd = KeystoreProvider.decrypt("Claves",clave);
 
 
 
@@ -116,9 +116,6 @@ public class PantallaAutenticacion extends AppCompatActivity {
                     stringBuilder.append(password.charAt(random.nextInt(password.length())));
                 }
                 String passwordbbdd = stringBuilder.toString();
-
-
-
 
                 //Crear instancia de la bbdd
                 SQLiteDatabase.loadLibs(getApplicationContext());
