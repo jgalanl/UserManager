@@ -1,2 +1,2 @@
 # UserManager
-Carol, hermosa.
+Aplicación para la gestión de usuarios.
